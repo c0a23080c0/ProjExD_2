@@ -11,6 +11,7 @@ DELTA = {
     pg.K_LEFT:(-5, 0),
     pg.K_RIGHT:(+5, 0),
 }
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -27,8 +28,25 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+def kk_img_di():
+    kk_img_L = pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 2.0)
+    kk_img_R = pg.transform.flip(kk_img_L,True,False)
+    return {
+    (0, 0):kk_img_L,
+    (0, -5):pg.transform.rotozoom(kk_img_L,-90,1.0),
+    (-5, 0):pg.transform.rotozoom(kk_img_L,0,1.0),
+    (0, +5):pg.transform.rotozoom(kk_img_L,90,1.0),
+    (+5, 0):kk_img_R,
+    (5, 5):pg.transform.rotozoom(kk_img_L,45,1.0)
+    (-5, -5):
+    (5, -5):
+    (-5, 5):
+}
+
 
 def main():
+    kk_imgs = kk_img_di()
+    kk_img = kk_imgs[(0, 0)]
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bg_img = pg.image.load("fig/pg_bg.jpg")    
@@ -59,6 +77,7 @@ def main():
                 sum_mv[0] += v[0]
                 sum_mv[1] += v[1]
         kk_rct.move_ip(sum_mv)
+        kk_img = kk_imgs[tuple(sum_mv)]
         if check_bound(kk_rct) != (True, True):
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
         screen.blit(kk_img, kk_rct)
