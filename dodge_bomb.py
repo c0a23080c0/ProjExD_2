@@ -31,7 +31,7 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
 def kk_img_di():
     kk_img_L = pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 2.0)
     kk_img_R = pg.transform.flip(kk_img_L,True,False)
-    return {
+    return {                                        # 角度の辞書
     (0, 0):kk_img_L,
     (0, -5):pg.transform.rotozoom(kk_img_L,-90,1.0),
     (-5, 0):pg.transform.rotozoom(kk_img_L,0,1.0),
