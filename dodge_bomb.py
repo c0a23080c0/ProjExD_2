@@ -4,7 +4,7 @@ import sys
 import pygame as pg
 
 
-WIDTH, HEIGHT = 1600, 900
+WIDTH, HEIGHT = 900, 600
 DELTA = {
     pg.K_UP:(0, -5),
     pg.K_DOWN:(0, +5),
@@ -21,7 +21,7 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
     画面内ならTrue/画面外ならFalse
     """
     yoko, tate = True, True
-    if rct.left < 0 or WIDTH < 30 < rct.right:   # 横判定
+    if rct.left < 0 or WIDTH < rct.right:   # 横判定
         yoko = False
     if rct.top < 0 or HEIGHT < rct.bottom:  # 縦判定
         tate = False
@@ -34,7 +34,7 @@ def main():
     bg_img = pg.image.load("fig/pg_bg.jpg")    
     kk_img = pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 2.0)
     kk_rct = kk_img.get_rect()
-    kk_rct.center = 900, 400
+    kk_rct.center = 450, 300
     bb_img = pg.Surface((20, 20)) # １辺が２０のからのsurface
     bb_rct = bb_img.get_rect()   # 爆弾
     bb_rct.center = random.randint(0, WIDTH),random.randint(0, HEIGHT)
@@ -61,6 +61,11 @@ def main():
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
         screen.blit(kk_img, kk_rct)
         bb_rct.move_ip(vx, vy)
+        yoko, tate = check_bound(bb_rct)
+        if not yoko:
+            vx *= -1
+        if not tate:
+            vy *= -1
         screen.blit(bb_img, bb_rct)
         pg.display.update()
         tmr += 1
