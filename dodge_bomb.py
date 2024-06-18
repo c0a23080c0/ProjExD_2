@@ -37,10 +37,10 @@ def kk_img_di():
     (-5, 0):pg.transform.rotozoom(kk_img_L,0,1.0),
     (0, +5):pg.transform.rotozoom(kk_img_L,90,1.0),
     (+5, 0):kk_img_R,
-    (5, 5):pg.transform.rotozoom(kk_img_L,45,1.0)
-    (-5, -5):
-    (5, -5):
-    (-5, 5):
+    (5, 5):pg.transform.rotozoom(kk_img_R,-45,1.0),
+    (-5, -5):pg.transform.rotozoom(kk_img_L,-45,1.0),
+    (5, -5):pg.transform.rotozoom(kk_img_R,45,1.0),
+    (-5, 5):pg.transform.rotozoom(kk_img_L,45,1.0),
 }
 
 
